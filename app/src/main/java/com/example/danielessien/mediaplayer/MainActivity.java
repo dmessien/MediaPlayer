@@ -1,6 +1,7 @@
 package com.example.danielessien.mediaplayer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -25,6 +26,8 @@ public class MainActivity extends ActionBarActivity {
     private static int volumeScale = 0;
 
     private static int current = 0;
+
+    private static int bgColor = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +120,6 @@ public class MainActivity extends ActionBarActivity {
                                 (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                         int max = audioManager.getStreamMaxVolume(audioManager.STREAM_MUSIC);
 
-
                         if (scaleFactor < 1) {
                             verdict = "pinch";
 
@@ -125,8 +127,11 @@ public class MainActivity extends ActionBarActivity {
 
                             if(current > 0){
                                 volumeScale--;
-                                textView2.setText("Volume: "+volumeScale);
-                                Toast.makeText(MainActivity.this, "Volume: " + current, Toast.LENGTH_SHORT).show();
+                                bgColor = current*18;
+                                //textView2.setText("Volume: "+volumeScale);
+                                //Toast.makeText(MainActivity.this, "Volume: " + current, Toast.LENGTH_SHORT).show();
+                                textView.setTextColor(Color.rgb(255-(int)bgColor, 255-(int)bgColor, 255-(int)bgColor));
+                                relativeLayout.setBackgroundColor(Color.rgb((int)bgColor, (int)bgColor, (int)bgColor));
                                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, current, 0);
                                 /*audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
                                         AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);*/
@@ -139,8 +144,11 @@ public class MainActivity extends ActionBarActivity {
 
                             if(current < max){
                                 volumeScale++;
-                                textView2.setText(""+volumeScale);
-                                Toast.makeText(MainActivity.this, "Volume: " + current, Toast.LENGTH_SHORT).show();
+                                bgColor = current*18;
+                                //textView2.setText(""+volumeScale);
+                                //Toast.makeText(MainActivity.this, "Volume: " + current, Toast.LENGTH_SHORT).show();
+                                textView.setTextColor(Color.rgb(255-(int)bgColor, 255-(int)bgColor, 255-(int)bgColor));
+                                relativeLayout.setBackgroundColor(Color.rgb((int)bgColor, (int)bgColor, (int)bgColor));
                                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, current, 0);
                                 /*audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
                                         AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);*/
